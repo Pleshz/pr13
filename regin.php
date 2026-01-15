@@ -44,7 +44,8 @@
 					<div class = "sub-name">Повторите пароль:</div>
 					<input name="_passwordCopy" type="password" placeholder="" onkeypress="return PressToEnter(event)"/>
 					<div class = "sub-name">Фотография:</div>
-					<input name="photo" type="file" accept=".png, .jpg, .jpeg, image/png, image/jpeg"/>
+					<input name="photo" type="file" id="imageInput" accept=".png, .jpg, .jpeg, image/png, image/jpeg"/>
+					<img id="preview" src="#" alt="ФотоПредпросмотра" style="display: none; width: 200px;">
 					
 					<a href="login.php">Вернуться</a>
 					<input type="button" class="button" value="Зайти" onclick="RegIn()" style="margin-top: 0px;"/>
@@ -60,6 +61,18 @@
 		</div>
 		
 		<script>
+			document.getElementById('imageInput').addEventListener('change', function(event) {
+				const file = event.target.files[0];
+				if (file) {
+					const reader = new FileReader();
+					reader.onload = function(e) {
+						document.getElementById('preview').src = e.target.result;
+						document.getElementById('preview').style.display = 'block';
+					};
+					reader.readAsDataURL(file);
+				}
+			});
+
 			var loading = document.getElementsByClassName("loading")[0];
 			var button = document.getElementsByClassName("button")[0];
 			
