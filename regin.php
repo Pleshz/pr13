@@ -63,7 +63,14 @@
 		<script>
 			document.getElementById('imageInput').addEventListener('change', function(event) {
 				const file = event.target.files[0];
-				if (file) {
+				var fileInput = document.getElementById('imageInput');
+				var filePath = fileInput.value;
+				var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+				if (!allowedExtensions.exec(filePath)) {
+					fileInput.value = '';
+					return false;
+				}	 
+				else {
 					const reader = new FileReader();
 					reader.onload = function(e) {
 						document.getElementById('preview').src = e.target.result;
